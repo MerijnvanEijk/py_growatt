@@ -1,0 +1,11 @@
+{
+    "converter": "growatt_MIC33xx",
+    "device" : "/dev/ttyUSB0",    
+    "host": "host.local.mqtt.broker",
+    "port": 1883,
+    "topic":"growatt/reading",
+    "credentials": {
+        "username": "user",
+        "password": "password"
+    }
+}
