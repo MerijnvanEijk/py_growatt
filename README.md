@@ -6,9 +6,9 @@ This repo is inspired by: https://github.com/nygma2004/growatt2mqtt/tree/main , 
 I used it to cross-reference the minimal register interface also mentioned in the growatt modbus registery datasheet.
 
 ## Future improvements/validations TODO's:
-Support more (Growatt) converters (modbus)
-Support more mqtt server connection options (no credentials/TLS'ed)
-Support error registers of growatt
+- Support more (Growatt) converters (modbus)
+- Support more mqtt server connection options (no credentials/TLS'ed)
+- Support error registers of growatt
 
 ## Requirements Hardware
 - A Raspberry PI or PC running linux.
