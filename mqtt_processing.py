@@ -1,7 +1,8 @@
-from paho.mqtt import client as mqtt_client
+"""Basic MQTT processing module"""
 import random
 import logging
 import time
+from paho.mqtt import client as mqtt_client
 
 FIRST_RECONNECT_DELAY = 1
 RECONNECT_RATE = 2
@@ -9,7 +10,8 @@ MAX_RECONNECT_COUNT = 12
 MAX_RECONNECT_DELAY = 60
 
 
-class mqtt_processing:
+class MQTTProcessing:
+    """MQTT processing class on init will create and connect to broker"""
     def __init__(
         self, broker, port, topic="growatt/reading", username=None, password=None
     ):
@@ -23,6 +25,7 @@ class mqtt_processing:
         self.connect()
 
     def connect(self):
+        """Connect to MQTT broker at Version2 API"""
         self.logger.info("MQTT local connect")
         client_id = "python-mqtt-" + str(random.randint(0, 1000))
         client = mqtt_client.Client(
@@ -37,14 +40,15 @@ class mqtt_processing:
         self.client = client
 
     def on_connect(self, userdata, flags, rc, properties):
+        """On Connect callback"""
         if rc == 0:
             self.logger.info("Connected to MQTT Broker!")
         else:
             self.logger.error("Failed to connect, return code %d\n", rc)
 
     def on_disconnect(
-        self, client, not_available, disconnect_flags, reason_code, properties
-    ):
+        self, client, not_available, disconnect_flags, reason_code, properties):
+        """On disconnect callback"""
         self.logger.info("Disconnected with result code: %s", reason_code)
         if reason_code.getName() == "Normal disconnection":
             self.logger.info("Disconnect from client side")
@@ -71,6 +75,7 @@ class mqtt_processing:
         )
 
     def publish(self, msg, subtopic=None):
+        """Publishing to connected broker. If subtopic passed it will extend the base topic with the subtopic"""
         if subtopic:
             _topic = self.topic + "/" + subtopic
         else:
@@ -86,4 +91,5 @@ class mqtt_processing:
             return -1
 
     def disconnect(self):
+        """Disconnect from MQTT broker"""
         self.client.disconnect()
